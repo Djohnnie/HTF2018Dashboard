@@ -108,7 +108,6 @@ namespace Assets
                 }
             }
             this.url = Networking.ACCESS_POINT_URL + action;
-            Debug.Log(this.url);
         }
 
         public bool isDone()

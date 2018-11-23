@@ -529,6 +529,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d9b5efd4774484ba310fd927acc9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Artifact: {fileID: 2100000, guid: c6eafa64097046a49be2193761e87219, type: 2}
+  Iron: {fileID: 2100000, guid: 5d313659f82062c4983d0e0e457da665, type: 2}
   ChallengeSuccessfull: {fileID: 2100000, guid: da4128244d404f24381a0161c8551736,
     type: 2}
   ChallengeUnsuccessfull: {fileID: 2100000, guid: be78d809ff9bf1c45a6343f0a51202d4,

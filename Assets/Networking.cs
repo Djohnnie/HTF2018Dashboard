@@ -6,6 +6,10 @@ namespace Assets
 {
     public class Networking : MonoBehaviour
     {
+        private const string IDENTIFICATION = "N2YzOTVlOWItOGViMi00ODI5LWI5NDgtNDljYTJkZjY1YjJj";
+        public static string ACCESS_POINT_URL = "http://my.djohnnie.be:8998/";
+        //public static string ACCESS_POINT_URL = "http://localhost:5000/";
+
         private static Networking _instance = null;
 
         public static Networking Instance
@@ -36,7 +40,6 @@ namespace Assets
         }
 
         private List<WwwMessage> messages = new List<WwwMessage>();
-        public static string ACCESS_POINT_URL = "http://my.djohnnie.be:8998/";
 
         // register all created WWWMessage objects and keep track of their status and yield progress. If they yield longer than the timeout stop the coroutine and make them call the error callback
         public void addMessage(WwwMessage msg)
@@ -63,8 +66,25 @@ namespace Assets
 
         public void refreshTeams(Action<JSONObject> successCallback, Action<JSONObject> errorCallback)
         {
-            var msg = new WwwMessage(this, "dashboard/teams", successCallback, errorCallback);
-            msg.addHeaderParam("htf-identification", "7f395e9b-8eb2-4829-b948-49ca2df65b2c");
+            var url = "dashboard/teams";
+            var msg = new WwwMessage(this, url, successCallback, errorCallback);
+            msg.addHeaderParam("htf-identification", IDENTIFICATION);
+            Networking.Instance.StartCoroutine(msg.send());
+        }
+
+        public void refreshChallenges(Guid teamId, Action<JSONObject> successCallback, Action<JSONObject> errorCallback)
+        {
+            var url = string.Format("/dashboard/teams/{0}/status", teamId);
+            var msg = new WwwMessage(this, url, successCallback, errorCallback);
+            msg.addHeaderParam("htf-identification", IDENTIFICATION);
+            Networking.Instance.StartCoroutine(msg.send());
+        }
+
+        public void refreshChallengeOverview(Action<JSONObject> successCallback, Action<JSONObject> errorCallback)
+        {
+            var url = string.Format("/dashboard/teams/overall/status");
+            var msg = new WwwMessage(this, url, successCallback, errorCallback);
+            msg.addHeaderParam("htf-identification", IDENTIFICATION);
             Networking.Instance.StartCoroutine(msg.send());
         }
     }

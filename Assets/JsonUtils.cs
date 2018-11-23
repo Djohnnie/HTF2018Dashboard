@@ -16,6 +16,17 @@ namespace Assets
             }
             return null;
         }
+
+        public static Guid getGuid(this JSONObject json, string fieldName)
+        {
+            var fieldJson = json.GetField(fieldName);
+            if (fieldJson != null && fieldJson.IsString && fieldJson.str != null)
+            {
+                return new Guid(fieldJson.str);
+            }
+            return Guid.Empty;
+        }
+
         public static bool getBoolValue(this JSONObject json, string fieldName, bool defaultVal = false)
         {
             var fieldJson = json.GetField(fieldName);
@@ -46,9 +57,9 @@ namespace Assets
         public static TEnum getEnumValue<TEnum>(this JSONObject json, string fieldName, TEnum defaultVal = default(TEnum)) where TEnum : struct
         {
             var fieldJson = json.GetField(fieldName);
-            if (fieldJson != null && fieldJson.IsNumber)
+            if (fieldJson != null && fieldJson.IsString && fieldJson.str != null)
             {
-                return (TEnum)Enum.ToObject(typeof(TEnum), fieldJson.i);
+                return (TEnum)Enum.Parse(typeof(TEnum), fieldJson.str);
             }
             return defaultVal;
         }
@@ -57,6 +68,11 @@ namespace Assets
         {
             var fieldJson = json.GetField(fieldName);
             return fieldJson != null ? new T().FromJson(fieldJson) : default(T);
+        }
+
+        public static T GetValue<T>(this JSONObject json) where T : ICreatableFromJson<T>, new()
+        {
+            return json != null ? new T().FromJson(json) : default(T);
         }
 
         public static List<T> GetValues<T>(this JSONObject json) where T : ICreatableFromJson<T>, new()

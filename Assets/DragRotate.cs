@@ -47,7 +47,7 @@ public class DragRotate : MonoBehaviour
             float rotateX = Input.GetAxis("Mouse X") * RotationSpeed * Mathf.Deg2Rad;
             float rotateY = Input.GetAxis("Mouse Y") * RotationSpeed * Mathf.Deg2Rad;
 
-            transform.RotateAround(Vector3.up, -rotateX);
+            transform.RotateAround(Vector3.up, rotateX);
             transform.RotateAround(Vector3.right, rotateY);
         }
 
