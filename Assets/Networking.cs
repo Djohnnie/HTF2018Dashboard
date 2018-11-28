@@ -7,8 +7,16 @@ namespace Assets
     public class Networking : MonoBehaviour
     {
         private const string IDENTIFICATION = "N2YzOTVlOWItOGViMi00ODI5LWI5NDgtNDljYTJkZjY1YjJj";
-        public static string ACCESS_POINT_URL = "http://my.djohnnie.be:8998/";
-        //public static string ACCESS_POINT_URL = "http://localhost:5000/";
+
+#if !UNITY_EDITOR_WIN && UNITY_STANDALONE
+        public static string ACCESS_POINT_URL = "http://htf2018.azurewebsites.net/";
+#endif
+#if UNITY_EDITOR_WIN
+        public static string ACCESS_POINT_URL = "http://htf2018.azurewebsites.net/";
+#endif
+#if !UNITY_EDITOR && UNITY_WEBGL
+        public static string ACCESS_POINT_URL = "";
+#endif
 
         private static Networking _instance = null;
 
