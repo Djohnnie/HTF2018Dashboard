@@ -9,10 +9,10 @@ namespace Assets
         private const string IDENTIFICATION = "N2YzOTVlOWItOGViMi00ODI5LWI5NDgtNDljYTJkZjY1YjJj";
 
 #if !UNITY_EDITOR_WIN && UNITY_STANDALONE
-        public static string ACCESS_POINT_URL = "http://htf2018.azurewebsites.net/";
+        public static string ACCESS_POINT_URL = "http://my.djohnnie.be:8998/";
 #endif
 #if UNITY_EDITOR_WIN
-        public static string ACCESS_POINT_URL = "http://htf2018.azurewebsites.net/";
+        public static string ACCESS_POINT_URL = "http://my.djohnnie.be:8998/";
 #endif
 #if !UNITY_EDITOR && UNITY_WEBGL
         public static string ACCESS_POINT_URL = "";
@@ -74,26 +74,38 @@ namespace Assets
 
         public void refreshTeams(Action<JSONObject> successCallback, Action<JSONObject> errorCallback)
         {
-            var url = "dashboard/teams";
-            var msg = new WwwMessage(this, url, successCallback, errorCallback);
-            msg.addHeaderParam("htf-identification", IDENTIFICATION);
-            Networking.Instance.StartCoroutine(msg.send());
+            try
+            {
+                var url = "dashboard/teams";
+                var msg = new WwwMessage(this, url, successCallback, errorCallback);
+                msg.addHeaderParam("htf-identification", IDENTIFICATION);
+                Networking.Instance.StartCoroutine(msg.send());
+            }
+            catch { }
         }
 
         public void refreshChallenges(Guid teamId, Action<JSONObject> successCallback, Action<JSONObject> errorCallback)
         {
-            var url = string.Format("/dashboard/teams/{0}/status", teamId);
-            var msg = new WwwMessage(this, url, successCallback, errorCallback);
-            msg.addHeaderParam("htf-identification", IDENTIFICATION);
-            Networking.Instance.StartCoroutine(msg.send());
+            try
+            {
+                var url = string.Format("/dashboard/teams/{0}/status", teamId);
+                var msg = new WwwMessage(this, url, successCallback, errorCallback);
+                msg.addHeaderParam("htf-identification", IDENTIFICATION);
+                Networking.Instance.StartCoroutine(msg.send());
+            }
+            catch { }
         }
 
         public void refreshChallengeOverview(Action<JSONObject> successCallback, Action<JSONObject> errorCallback)
         {
-            var url = string.Format("/dashboard/teams/overall/status");
-            var msg = new WwwMessage(this, url, successCallback, errorCallback);
-            msg.addHeaderParam("htf-identification", IDENTIFICATION);
-            Networking.Instance.StartCoroutine(msg.send());
+            try
+            {
+                var url = string.Format("/dashboard/teams/overall/status");
+                var msg = new WwwMessage(this, url, successCallback, errorCallback);
+                msg.addHeaderParam("htf-identification", IDENTIFICATION);
+                Networking.Instance.StartCoroutine(msg.send());
+            }
+            catch { }
         }
     }
 }

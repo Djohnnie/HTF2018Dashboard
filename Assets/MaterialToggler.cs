@@ -48,6 +48,7 @@ public class MaterialToggler : MonoBehaviour
             Material[] materials = new Material[my_renderer.materials.Length];
             for (int i = 0; i < my_renderer.materials.Length; i++)
             {
+                Destroy(my_renderer.materials[i]);
                 if (i == 0 || i == my_renderer.materials.Length - 1)
                 {
                     materials[i] = i == 0 ? Artifact : Iron;
